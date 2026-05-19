@@ -8,7 +8,7 @@
   - name: install nodejs
     ansible.builtin.dnf:
       name: nodejs
-      sttae: present
+      state: present
 
   - name: create system user
     ansible.builtin.user:
