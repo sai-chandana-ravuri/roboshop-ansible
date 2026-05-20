@@ -57,3 +57,8 @@
   - name: load the products
     ansible.builtin.shell: mongosh --host "{{ MONGODB_HOST }}"
     when: catalogue_output.stdout | int < 0
+  - name: start catalogue
+    ansible.builtin.service:
+      name: catalogue
+      started: yes
+      enabled: yes
