@@ -9,6 +9,7 @@
     - catalogue
     env: dev
     domain_name: "daws88c.online"
+    action: create
   tasks:
   - name: start an instance with a public IP address
     amazon.aws.ec2_instance:
@@ -22,10 +23,12 @@
         Component: "{{ item }}"
         Environment: "{{ env }}"
     register: ec2_output
+    when: action == "create"
     loop: "{{ instances }}"
   - name: printing ec2_output
     ansible.builtin.debug:
       msg: "{{ ec2_output }}"
+    when: action == "create"
   - name: create route53 records
     amazon.aws.route53:
       state: present
