@@ -43,26 +43,13 @@
     community.general.npm:
       path: /app
   - name: Copying service file 
-    ansible.builtin.copy:
+    ansible.builtin.template:
       src: cart.service
       dest: /etc/systemd/system/cart.service
-  - name: copy mongo repo
-    ansible.builtin.copy:
-      src: mongo.repo
-      dest: /etc/yum.repos.d/mongo.repo
-  - name: install mongodb client
-    ansible.builtin.dnf:
-      name: mongodb-mongosh
-      state: present
-  - name: check products loaded or not
-    ansible.builtin.command: mongosh --host "{{ MONGODB_HOST }}" --quiet  --eval 'db.getMongo().getDBNames().indexOf("cart")'
-    register: cart_output
-  - name: printing cart_output
-    ansible.builtin.debug:
-      msg: "{{ cart_output }}"
-  - name: load the products
-    ansible.builtin.shell: mongosh --host "{{ MONGODB_HOST }}" </app/db/master-data.js
-    when: cart_output.stdout | int < 0
+  - name: daemon reload
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+
   - name: start cart
     ansible.builtin.service:
       name: cart
