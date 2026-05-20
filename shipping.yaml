@@ -55,8 +55,11 @@
       daemon_reload: true
   - name: install dependencies
     ansible.builtin.pip:
-      name: PyMySQL
+      name: "{{ item }}"
       executable: pip3.9
+    loop:
+    - PyMySQL
+    - cryptography
   - name: import shipping data
     community.mysql.mysql_db:
       state: import
