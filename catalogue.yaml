@@ -56,4 +56,4 @@
       msg: "{{ catalogue_output }}"
   - name: load the products
     ansible.builtin.shell: mongosh --host "{{ MONGODB_HOST }}"
-    when: catalogue_output.stdout < 0
+    when: catalogue_output.stdout | int < 0
