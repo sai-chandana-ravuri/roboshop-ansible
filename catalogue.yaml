@@ -43,7 +43,7 @@
     community.general.npm:
       path: /app
   - name: Copying service file 
-    ansible.builtin.copy:
+    ansible.builtin.template:
       src: catalogue.service
       dest: /etc/systemd/system/catalogue.service
   - name: copy mongo repo
