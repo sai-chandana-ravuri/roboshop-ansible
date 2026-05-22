@@ -27,7 +27,7 @@
       dest: /app
       remote_src: yes
   - name: replacing nginx.conf file
-    ansible.builtin.file:
+    ansible.builtin.template:
       src: nfinx.conf
       dest: /etc/nginx/nginx.conf
   - name: restart service
