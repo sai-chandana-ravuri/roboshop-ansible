@@ -24,7 +24,7 @@
   - name: unzipping frontend
     ansible.builtin.unarchive:
       src:  /tmp/frontend.zip
-      dest: /app
+      dest:  /usr/share/nginx/html
       remote_src: yes
   - name: replacing nginx.conf file
     ansible.builtin.template:
